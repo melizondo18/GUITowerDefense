@@ -49,21 +49,20 @@ public class Juego {
     public Juego () {
         //Crear el marco de la app
         ventana= new JFrame ("Tower Defense");
-        ventana.setSize(1024,512);
+        ventana.setSize(1200,750);
         //Permite poner botones e imagenes en la posición que queramos
         ventana. setLayout(null); //Si no lo ponemos el sistema lo pone por defecto
         ventana.setLocationRelativeTo(null); //Colocar la ventana principal en el medio
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Permite que cuando le demos "x"
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// Permite que cuando le demos "x" la app termine
         ventana.setResizable(false); // Es para desactivar el boton de agradar la pestaña(el amarillo)                                                            // a la aplicación se cierre y no quede ejecutando
             
         //Panel de presentación
         panelPresentacion = new JPanel();
         panelPresentacion.setLayout(null); //Permite que pongamos los componentes en el panel donde queramos
-        panelPresentacion.setBounds(0,0,ventana.getWidth(), ventana.getHeight()); // Lo vamos a poner 
+        panelPresentacion.setBounds(0,0,ventana.getWidth(), ventana.getHeight()); 
           //Lo vamos a poner en la posición (0,0) es decir en la esquina superior izq de nuestra ventana y el panel va
           // a ser del tamaño de la ventana (tomamos el ancho y alto de la ventana principal)
         panelPresentacion.setVisible(true); //Para que el panel sea visible
-        panelPresentacion.setBackground(Color.red); //deberia de pintar la ventana rojo (es para probar la linea de abajo)
         
         // Darle una imagen de fondo  al panel de presentación:
         fondoPresentacion = new JLabel(); // dandole memoria a la variable 
