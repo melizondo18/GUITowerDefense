@@ -3,11 +3,6 @@
 public class Torre {
     // Cantidad de vidas total de la torre
     private double vida = 10;
-    private VentanaTorre ventana;
-
-    public Torre(VentanaTorre ventana) {
-        this.ventana = ventana;
-    }
     
     // Método para restar las vidas según el daño causado
     public void danio (double danio) {
