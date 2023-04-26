@@ -205,7 +205,18 @@ public abstract class Juego extends JFrame implements ActionListener {
         fondoJuego.setVisible(true);
         panelJuego.add(fondoJuego, 0);
 
-        //Etiqueta donde se colocara el tiempo 
+        // Panel de puntos Torre - Etiqueta "Puntos: "
+        JLabel puntosLabel = new JLabel("Puntos Torre: "+torre);
+        puntosLabel.setBounds(20,200,200,30);
+        puntosLabel.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
+        panelJuego.add(puntosLabel, 0 );
+        //Etiqueta para mostrar la cantidad de puntos
+        puntosValorLabel = new JLabel("");
+        puntosValorLabel.setBounds(100,10,80,30);
+        puntosValorLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 20));
+        panelJuego.add(puntosValorLabel, 0);
+    
+//Etiqueta donde se colocara el tiempo 
         tiempo = new JLabel("00:00:000");
         tiempo.setBounds(500, 20, 200, 20);
         tiempo.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20)); // tamaño de las letras y tipo de letra
@@ -219,8 +230,8 @@ public abstract class Juego extends JFrame implements ActionListener {
 
         ventana.add(panelJuego);
         ventana.setVisible(true);
-
     }
+
     // CRONOMETRO
     public void run() {
         Integer minutos = 0, segundos = 0, milesimas = 0;
@@ -287,32 +298,6 @@ public abstract class Juego extends JFrame implements ActionListener {
     public void pararCronometro(){
         cronometroActivo = false;
     }
-    
-// Panel de puntos Torre
-public void puntosTorre(){
-   
-    JPanel panelPuntos = new JPanel();
-    panelPuntos.setBounds(0,0,200,50);
-    panelPuntos.setBackground(Color.white);
-
-    //Etiqueta "Puntos: "
-    JLabel puntosLabel = new JLabel("Puntos Torre: ");
-    puntosLabel.setBounds(10,10,80,30);
-    puntosLabel.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
-
-    //Etiqueta para mostrar la cantidad de puntos
-    //JLabel puntosValorLabel = new JLabel("0");
-    puntosValorLabel.setBounds(100,10,80,30);
-    puntosValorLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 20));
-
-    //Agregar las etiquetas al panel de puntos
-    panelPuntos.add(puntosLabel);
-    panelPuntos.add(puntosValorLabel);
-
-    //Agregar el panel de puntos al marco de la aplicación
-    ventana.add(panelPuntos);
-    
-}
     
 public void actualizarPuntos(int puntos) {
     puntosValorLabel.setText(Integer.toString(puntos));
