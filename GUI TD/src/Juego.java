@@ -26,7 +26,7 @@ public class Juego {
     ImageIcon imagenFondoMenu;
     
     //Juego
-    /* Hacer estatico, para acceder en la clase fantasma y al cambiar el valor 
+    /* Hacer estatico, para acceder en la clase y cambiar el valor 
     se modifique en esta clase juego si no esta estatico */
     static JPanel panelJuego; 
     JLabel fondoJuego;
@@ -115,5 +115,32 @@ public void menu () {
         panelMenu.add(fondoMenu,0);
                     
             ventana.add(panelMenu);
-        }                 
+        } 
+
+    //Panel de puntos Torre
+    JPanel panelPuntos = new JPanel();
+    panelPuntos.setBounds(0,0,200,50);
+    panelPuntos.setBackground(Color.white);
+
+    //Etiqueta "Puntos: "
+    JLabel puntosLabel = new JLabel("Puntos: ");
+    puntosLabel.setBounds(10,10,80,30);
+    puntosLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+
+    //Etiqueta para mostrar la cantidad de puntos
+    JLabel puntosValorLabel = new JLabel("0");
+    puntosValorLabel.setBounds(100,10,80,30);
+    puntosValorLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+
+    //Agregar las etiquetas al panel de puntos
+    panelPuntos.add(puntosLabel);
+    panelPuntos.add(puntosValorLabel);
+
+    //Agregar el panel de puntos al marco de la aplicación
+    ventana.add(panelPuntos);
+    
+    public void actualizarPuntos(int puntos) {
+    puntosValorLabel.setText(Integer.toString(puntos));
+    }
+
 }
