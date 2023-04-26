@@ -1,6 +1,7 @@
 /* Movimientos del juego*/
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,6 +25,9 @@ public class Juego {
     JButton botones[]; //Vector
     JLabel fondoMenu;
     ImageIcon imagenFondoMenu;
+    
+    // Para el label de la torre
+    private JLabel puntosValorLabel;
     
     //Juego
     /* Hacer estatico, para acceder en la clase y cambiar el valor 
@@ -115,22 +119,25 @@ public void menu () {
         panelMenu.add(fondoMenu,0);
                     
             ventana.add(panelMenu);
-        } 
+} 
 
-    //Panel de puntos Torre
+
+// Panel de puntos Torre
+public void puntosTorre(){
+   
     JPanel panelPuntos = new JPanel();
     panelPuntos.setBounds(0,0,200,50);
     panelPuntos.setBackground(Color.white);
 
     //Etiqueta "Puntos: "
-    JLabel puntosLabel = new JLabel("Puntos: ");
+    JLabel puntosLabel = new JLabel("Puntos Torre: ");
     puntosLabel.setBounds(10,10,80,30);
-    puntosLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+    puntosLabel.setFont(new Font("SANS_SERIF", Font.BOLD, 20));
 
     //Etiqueta para mostrar la cantidad de puntos
-    JLabel puntosValorLabel = new JLabel("0");
+    //JLabel puntosValorLabel = new JLabel("0");
     puntosValorLabel.setBounds(100,10,80,30);
-    puntosValorLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+    puntosValorLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 20));
 
     //Agregar las etiquetas al panel de puntos
     panelPuntos.add(puntosLabel);
@@ -139,8 +146,10 @@ public void menu () {
     //Agregar el panel de puntos al marco de la aplicación
     ventana.add(panelPuntos);
     
-    public void actualizarPuntos(int puntos) {
+}
+    
+public void actualizarPuntos(int puntos) {
     puntosValorLabel.setText(Integer.toString(puntos));
-    }
+}
 
 }
