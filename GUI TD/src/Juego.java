@@ -13,10 +13,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public abstract class Juego extends JFrame implements ActionListener {
-// MARCO DE LA APP
-    static JFrame ventana;
+
+    // MARCO DE LA APP
+    JFrame ventana;
 
     // PANEL DE PRESENTACIÓN
     JPanel panelPresentacion;
@@ -28,6 +30,9 @@ public abstract class Juego extends JFrame implements ActionListener {
     JPanel panelMenu;
     JLabel fondoMenu;
     ImageIcon imagenFondoMenu;
+    String jugador;
+    JLabel nombre;
+    JLabel cpu;
 
     // COMBO BOX
     private JLabel label1, label2;
@@ -35,20 +40,21 @@ public abstract class Juego extends JFrame implements ActionListener {
     private JButton boton1;
 
     // PANEL JUEGO
-    JPanel panelJuego;
+    static JPanel panelJuego;
     JLabel fondoJuego;
     ImageIcon imagenFondoJuego;
-
+    
+  
+    
     // TORRE
     JLabel puntajeTorre1;
     JLabel puntajeTorre2;
-    
+
     // TIEMPO
-    JLabel tiempo;
-   
+
     
-    public Juego () {
-         //CREAR EL MARCO DE LA APP
+    public Juego() {
+        //CREAR EL MARCO DE LA APP
         ventana = new JFrame("Tower Defense");
         ventana.setSize(1200, 750); // Tamaño de la ventana
         /*Permite poner botones e imagenes en la posición que queramos, de lo
@@ -70,21 +76,20 @@ public abstract class Juego extends JFrame implements ActionListener {
         (tomamos el ancho y alto de la ventana principal)*/
         panelPresentacion.setBounds(0, 0, ventana.getWidth(),
                 ventana.getHeight());
-
         panelPresentacion.setVisible(true); //Para que el panel sea visible
 
         // DARLE UNA IMAGEN DE FONDO AL PANEL DE PRESENTACIÓN
         fondoPresentacion = new JLabel();
         /* le damos posicion y el tamaño a la imagen que vamos a poner
         entre el parentesis se da la ruta de donde se encuentra la imagen */
-        fondoPresentacion.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
+        fondoPresentacion.setBounds(0, 0, ventana.getWidth(),
+                ventana.getHeight());
         imagenFondoPres = new ImageIcon("Imagen/fondo1.png");
         /* (getImage: es para coger la imagen) 
         (.getScaleInstance: le vamos a dar una nueva escala) 
         (ventana.getWidth: del tamaño/marco de la ventana) 
         (Image.SCALE_DEFAULT): Ayuda a adaptar el tamaño de la imagen a nuestro marco */
         imagenFondoPres = new ImageIcon(imagenFondoPres.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
-
         //le agregamos la imagen al Label
         fondoPresentacion.setIcon(imagenFondoPres);
         //Para poder ver la imagen
@@ -96,14 +101,13 @@ public abstract class Juego extends JFrame implements ActionListener {
         iniciar = new JButton("Iniciar");
         iniciar.setBounds(ventana.getWidth() - 120, 20, 90, 40);
         iniciar.setVisible(true); //Para que el boton sea visible
-        // iniciar.setBackground(Color.white);
-        //Aqui estamos montandolo encima de nuestro marco y lo colocamos como una capa, va a ser la parte de abajo
-        //Debo agregar los componenetes al panel, no la a ventana
+        /*Aqui estamos montandolo encima de nuestro marco y lo colocamos como una capa, va a ser la parte de abajo
+        Debo agregar los componenetes al panel, no la a ventana*/
         panelPresentacion.add(iniciar, 0);
 
         //MENU, darle memoria al boton
         boton1 = new JButton();
-
+        
         // El boton por ahora no hace nada por tanto se crea un evento del boton
         iniciar.addMouseListener(new MouseAdapter() {
             //Función del mouse
@@ -112,9 +116,15 @@ public abstract class Juego extends JFrame implements ActionListener {
                 menu();
             }
         });
+        
+       // Memoria a la matriz
+       
+        
+ 
+        
         ventana.add(panelPresentacion);
         ventana.setVisible(true);
-} 
+    }
 
     public void menu() {
         /*
@@ -128,7 +138,8 @@ public abstract class Juego extends JFrame implements ActionListener {
         panelMenu.setLayout(null);
         panelMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
         panelMenu.setVisible(true);
-        //
+
+        // FONDO DEL PANEL
         fondoMenu = new JLabel();
         fondoMenu.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
         imagenFondoMenu = new ImageIcon("Imagen/camino.png");
@@ -137,18 +148,20 @@ public abstract class Juego extends JFrame implements ActionListener {
         fondoMenu.setVisible(true);
         panelMenu.add(fondoMenu, 0);
 
-        //NUEVO
+        // BOTÓN CONTINUAR
         boton1.setText("Continuar");
         boton1.setBounds(110, 675, 100, 40);
         boton1.setVisible(true);
         boton1.setBackground(Color.white);
         panelMenu.add(boton1, 0);
 
+        // TÍTULO "PERSONAJES"
         label1 = new JLabel("PERSONAJES");
         label1.setBounds(35, 610, 100, 30);
         label1.setVisible(true);
         panelMenu.add(label1, 0);
 
+        // COMBO BOX DE PERSONAJES
         combo1 = new JComboBox<String>();
         combo1.setBounds(125, 610, 110, 30);
         combo1.addItem("Arquero");
@@ -157,11 +170,13 @@ public abstract class Juego extends JFrame implements ActionListener {
         combo1.setVisible(true);
         panelMenu.add(combo1, 0);
 
+        // TÍTULO "CAMINOS"
         label2 = new JLabel("CAMINOS");
         label2.setBounds(35, 640, 100, 30);
         label2.setVisible(true);
         panelMenu.add(label2, 0);
 
+        // COMBO BOX DE CAMINOS
         combo2 = new JComboBox<String>();
         combo2.setBounds(125, 640, 155, 30);
         combo2.addItem("Camino superior");
@@ -169,32 +184,44 @@ public abstract class Juego extends JFrame implements ActionListener {
         combo2.setVisible(true);
         panelMenu.add(combo2, 0);
 
+        // AGREGAR EL PANEL MENU A LA VENTANA
         ventana.add(panelMenu);
         ventana.setVisible(true);
 
+        // Cuando le damos click al boton1 (continuar) pasa al método juego
         boton1.addMouseListener(new MouseAdapter() {
             //Función del mouse
             public void mouseReleased(MouseEvent e) {
                 // Al dale click a iniciar debería aparecer el panel de menu
+                jugador = JOptionPane.showInputDialog(ventana, "Nombre del jugador:",
+                        "Escriba el nombre aqui");
+
+                while (jugador == null || jugador.compareTo("Escriba el nombre aqui") == 0
+                        || jugador.compareTo("") == 0) {
+                    jugador = JOptionPane.showInputDialog(ventana, "Nombre del jugador:",
+                            "Escriba el nombre aqui");
+                }
                 juego();
             }
         });
     }
-
+    
+    
     public void juego() {
+        // CREAR OBJETOS TORRE Y CRONOMETRO
         Torre torre1 = new Torre();
         Torre torre2 = new Torre();
-        Cronometro crono = new Cronometro ();
-        
+        Cronometro crono = new Cronometro();
+
         panelMenu.setVisible(false);
 
-                    // CREAMOS UN PANEL DEL TAMAÑO DE LA VENTNA
+        // CREAMOS UN PANEL DEL TAMAÑO DE LA VENTNA
         panelJuego = new JPanel();
         panelJuego.setLayout(null);
         panelJuego.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
         panelJuego.setVisible(true);
-        
-                    // FONDE DEL JUEGO
+
+        // FONDE DEL JUEGO
         fondoJuego = new JLabel();
         fondoJuego.setBounds(0, 0, ventana.getWidth(), ventana.getHeight());
         imagenFondoJuego = new ImageIcon("Imagen/camino.png");
@@ -203,28 +230,64 @@ public abstract class Juego extends JFrame implements ActionListener {
         fondoJuego.setVisible(true);
         panelJuego.add(fondoJuego, 0);
 
-                    // PUNTOS DE LAS TORRES
+        // PUNTOS DE LAS TORRES
         // TORRE 1
         puntajeTorre1 = new JLabel("Puntos Torre: " + torre1.getVida());
-        puntajeTorre1.setBounds(25,200,200,30);
+        puntajeTorre1.setBounds(25, 200, 200, 30);
         puntajeTorre1.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
-        panelJuego.add(puntajeTorre1, 0 );
-
+        panelJuego.add(puntajeTorre1, 0);
+        
+        //NOMBRE DEL USUARIO EN TORRE 1
+        nombre = new JLabel ("Jugador: "+ jugador);
+        nombre.setBounds (20, 175, 400, 30);
+        nombre.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        panelJuego.add(nombre, 0);
+        
         // TORRE 2
-        puntajeTorre2 = new JLabel ("Puntos Torre: " + torre2.getVida());
-        puntajeTorre2.setBounds(1075,200,200,30);
+        puntajeTorre2 = new JLabel("Puntos Torre: " + torre2.getVida());
+        puntajeTorre2.setBounds(1075, 200, 200, 30);
         puntajeTorre2.setFont(new Font("SANS_SERIF", Font.BOLD, 10));
-        panelJuego.add(puntajeTorre2, 0 );
+        panelJuego.add(puntajeTorre2, 0);
         
-                    //Etiqueta donde se colocara el tiempo 
+        //NOMBRE DEL CPU EN TORRE 2
+        cpu = new JLabel("CPU");
+        cpu.setBounds(1107, 175, 70, 30);
+        cpu.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        panelJuego.add(cpu, 0);
+        
+        // DAR MEMORIA A LA MATRIZ
+        
+        
+        
+        //Etiqueta donde se colocara el tiempo 
         panelJuego.add(crono.getTiempo(), 0);
-        
 
+        
         ventana.add(panelJuego);
         ventana.setVisible(true);
     }
-
-public static void main(String[] ar) {
+    
+    //Método para pintar la matriz
+     public static void pintarMatriz(){
+      
+     } 
+     
+public int[][] tablero(int opcion) { // como parametro vamos a meter una variable opcion
+        int [][] aux1 = new int [2][5]; // creando matriz 15 x 15
+        if (opcion == 1) {
+            int aux [][] = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                
+            };
+            return aux; // Aqui va nuestra matriz
+        }
+    return aux1;
+    }
+         
+         
+     
+    public static void main(String[] ar) {
         Juego formulario1 = new Juego() {
             @Override
             public void actionPerformed(ActionEvent e) {
