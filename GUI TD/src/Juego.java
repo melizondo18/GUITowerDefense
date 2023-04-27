@@ -43,7 +43,7 @@ public abstract class Juego extends JFrame implements ActionListener {
     static JPanel panelJuego;
     JLabel fondoJuego;
     ImageIcon imagenFondoJuego;
-    
+    JLabel ronda;
   
     
     // TORRE
@@ -78,21 +78,14 @@ public abstract class Juego extends JFrame implements ActionListener {
                 ventana.getHeight());
         panelPresentacion.setVisible(true); //Para que el panel sea visible
 
-        // DARLE UNA IMAGEN DE FONDO AL PANEL DE PRESENTACIÓN
+        // IMAGEN DE FONDO AL PANEL DE PRESENTACIÓN
         fondoPresentacion = new JLabel();
-        /* le damos posicion y el tamaño a la imagen que vamos a poner
-        entre el parentesis se da la ruta de donde se encuentra la imagen */
         fondoPresentacion.setBounds(0, 0, ventana.getWidth(),
                 ventana.getHeight());
         imagenFondoPres = new ImageIcon("Imagen/fondo1.png");
-        /* (getImage: es para coger la imagen) 
-        (.getScaleInstance: le vamos a dar una nueva escala) 
-        (ventana.getWidth: del tamaño/marco de la ventana) 
-        (Image.SCALE_DEFAULT): Ayuda a adaptar el tamaño de la imagen a nuestro marco */
-        imagenFondoPres = new ImageIcon(imagenFondoPres.getImage().getScaledInstance(ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
-        //le agregamos la imagen al Label
+        imagenFondoPres = new ImageIcon(imagenFondoPres.getImage().getScaledInstance
+            (ventana.getWidth(), ventana.getHeight(), Image.SCALE_DEFAULT));
         fondoPresentacion.setIcon(imagenFondoPres);
-        //Para poder ver la imagen
         fondoPresentacion.setVisible(true);
         //Agregamos la imagen a la posicion cero
         panelPresentacion.add(fondoPresentacion, 0);
@@ -117,8 +110,7 @@ public abstract class Juego extends JFrame implements ActionListener {
             }
         });
         
-       // Memoria a la matriz
-       
+           
         
  
         
@@ -255,8 +247,16 @@ public abstract class Juego extends JFrame implements ActionListener {
         cpu.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
         panelJuego.add(cpu, 0);
         
-        // DAR MEMORIA A LA MATRIZ
-        
+        // Nombre Ronda
+        ronda = new JLabel ("Ronda: "); // Agregar el resto del codigo cuando se haga el merge con el proyecto principal
+        ronda.setBounds(550, 70 , 100 , 30);
+        ronda.setFont(new Font("SANS_SERIF", Font.BOLD, 15));
+        ronda.setHorizontalAlignment(JLabel.CENTER);
+        ronda.setForeground(Color.BLACK);
+        ronda.setBackground(Color.CYAN);
+        ronda.setOpaque(true);
+        ronda.setVisible(true);
+        panelJuego.add(ronda , 0);
         
         
         //Etiqueta donde se colocara el tiempo 
@@ -267,25 +267,7 @@ public abstract class Juego extends JFrame implements ActionListener {
         ventana.setVisible(true);
     }
     
-    //Método para pintar la matriz
-     public static void pintarMatriz(){
-      
-     } 
-     
-public int[][] tablero(int opcion) { // como parametro vamos a meter una variable opcion
-        int [][] aux1 = new int [2][5]; // creando matriz 15 x 15
-        if (opcion == 1) {
-            int aux [][] = {
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                
-            };
-            return aux; // Aqui va nuestra matriz
-        }
-    return aux1;
-    }
-         
-         
+       
      
     public static void main(String[] ar) {
         Juego formulario1 = new Juego() {
